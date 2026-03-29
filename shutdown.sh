@@ -1,7 +1,9 @@
-#/bin/bash
+#!/usr/bin/env bash
 
-cd ./1.environment
+set -euo pipefail
 
-echo "Deteniendo entorno"
-docker compose down --remove-orphans
+COMPOSE_FILE="docker/docker-compose.yml"
+
+echo "Deteniendo entorno (usando $COMPOSE_FILE)"
+docker compose -f "$COMPOSE_FILE" down --remove-orphans
 echo "OK"

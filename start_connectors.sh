@@ -1,15 +1,25 @@
-#/bin/bash
+#!/usr/bin/env bash
 
-echo "Lanzando conectores"
+set -euo pipefail
 
-curl -d @"./connectors/source-datagen-_transactions.json" -H "Content-Type: application/json" -X POST http://localhost:8083/connectors
+CONNECT_URL="http://localhost:8083"
 
-curl -d @"./connectors/sink-mysql-_transactions.json" -H "Content-Type: application/json" -X POST http://localhost:8083/connectors
+echo "Registrando conectores en $CONNECT_URL"
 
-curl -d @"./connectors/source-datagen-sensor-telemetry.json" -H "Content-Type: application/json" -X POST http://localhost:8083/connectors
+register() {
+	local file="$1"
+	if [ -f "$file" ]; then
+		echo "POST $file"
+		curl -s -X POST -H "Content-Type: application/json" --data-binary "@$file" "$CONNECT_URL/connectors" || echo "Error registrando $file"
+	else
+		echo "Aviso: fichero $file no encontrado, omitiendo"
+	fi
+}
 
-curl -d @"./connectors/source-mysql-transactions.json" -H "Content-Type: application/json" -X POST http://localhost:8083/connectors
-
-curl -d @"./connectors/sink-mongodb-sensor_alerts.json" -H "Content-Type: application/json" -X POST http://localhost:8083/connectors
+register "connectors/source-datagen-_transactions.json"
+register "connectors/sink-mysql-_transactions.json"
+register "connectors/source-datagen-sensor-telemetry.json"
+register "connectors/source-mysql-transactions.json"
+register "connectors/sink-mongodb-sensor_alerts.json"
 
 echo "OK"
