@@ -1,0 +1,13 @@
+{
+  "name": "sink-mongodb-sensor_alerts",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+    "connection.uri": "mongodb://admin:secret123@mongodb:27017/course",
+    "topics": "sensor-alerts",
+    "database": "course",
+    "collection": "sensor_alerts",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false"
+  }
+}

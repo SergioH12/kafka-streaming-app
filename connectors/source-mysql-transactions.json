@@ -1,0 +1,19 @@
+{
+  "name": "source-mysql-_transactions",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "tasks.max": "1",
+    "connection.url": "jdbc:mysql://mysql:3306/db?user=user&password=password&useSSL=false",
+    "table.whitelist": "sales_transactions",
+    "mode": "timestamp",
+    "timestamp.column.name": "timestamp",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter.schema.registry.url": "http://schema-registry:8081",
+    "transforms": "castPrice,setSchema",
+    "transforms.castPrice.type": "org.apache.kafka.connect.transforms.Cast$Value",
+    "transforms.castPrice.spec": "price:float64",
+    "transforms.setSchema.type": "org.apache.kafka.connect.transforms.SetSchemaMetadata$Value",
+    "transforms.setSchema.schema.name": "com.farmia.sales.SalesTransaction"
+  }
+}

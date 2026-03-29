@@ -1,0 +1,13 @@
+{
+  "name": "sink-mysql-_transactions",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "connection.url": "jdbc:mysql://mysql:3306/db?user=user&password=password&useSSL=false",
+    "topics": "_transactions",
+    "auto.evolve": "true",
+    "insert.mode": "insert",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter.schema.registry.url": "http://schema-registry:8081"
+  }
+}

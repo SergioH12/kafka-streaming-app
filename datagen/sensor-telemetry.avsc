@@ -1,0 +1,65 @@
+{
+  "namespace": "com.farmia.iot",
+  "name": "SensorTelemetry",
+  "type": "record",
+  "fields": [
+    {
+      "name": "sensor_id",
+      "type": {
+        "type": "string",
+        "arg.properties": {
+          "regex": "sensor_00[1-9]"
+        }
+      }
+    },
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis",
+        "arg.properties": {
+          "iteration": {
+            "start": 1771756832,
+            "step": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "temperature",
+      "type": {
+        "type": "double",
+        "arg.properties": {
+          "range": {
+            "min": 20.0,
+            "max": 40.0
+          }
+        }
+      }
+    },
+    {
+      "name": "humidity",
+      "type": {
+        "type": "double",
+        "arg.properties": {
+          "range": {
+            "min": 0.0,
+            "max": 30.0
+          }
+        }
+      }
+    },
+    {
+      "name": "soil_fertility",
+      "type": {
+        "type": "double",
+        "arg.properties": {
+          "range": {
+            "min": 50.0,
+            "max": 100.0
+          }
+        }
+      }
+    }
+  ]
+}
